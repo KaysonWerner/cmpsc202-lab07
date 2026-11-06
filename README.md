@@ -1,6 +1,6 @@
 # Lab 07: The Integer-Valued Knapsack Problem
 
-**Name:** _______________________  
+**Name:** Kayson Werner  
 
 ## Introduction
 In this lab, you will explore different variations of the Knapsack problem and design a dynamic programming solution for one of them. You may work in small groups or individually, but everyone should write up their own answers to the questions below. 
@@ -17,7 +17,7 @@ Suppose we're going hiking. We have items $1, \ldots, n$ that we could pack in m
 
 **Question:** Which of the three problem variations can be solved using the dynamic programming approaches we've studied in lecture? Explain your reasoning.
 
-*Your Answer:*
+*Your Answer:* All three problem variations can be solved using dynamic programming. The first two maximise their value while staying under a weight capacity, with the difference being whether items can be reused or not. The third minimizes weight while reaching a minimum value. All three have core problems that have overlapping solutions, making them suitable for dynamic programming
 
 ## Part 2: The Naive Recursive Algorithm
 
@@ -40,7 +40,7 @@ Function MaxValue(W):
 
 **Question:** Which of the three problem variations (1, 2, or 3) does this algorithm solve? How do you know? Explain your reasoning.
 
-*Your Answer:*
+*Your Answer:* This algorithm is intended to solve the second problem variation because we aren't eliminating the chances of the item being used more than once which rules out the first problem, additionally we are looking for a max value which immediately rules out 3.
 
 ## Part 3: Recursion Tree
 
@@ -59,7 +59,12 @@ Consider the following simple example:
 
 **Question:** Derive a mathematical recurrence relation for $OPT(W)$, the maximum value you can pack into a knapsack of capacity $W$, based on the naive recursive algorithm. Be sure to state your base case(s) and explain how you arrived at your formula.
 
-*Your Answer:*
+*Your Answer:* 
+$OPT(M)$ = ${0}$               (if w = 0)
+
+or ${max[1<=i<=m ] { v_i+OPT(W - w_i)}}$    (if w > 0)
+
+
 
 
 ## Part 5: Bottom-Up Dynamic Programming
@@ -70,19 +75,19 @@ Instead of using the slow recursive approach, we can build a table bottom-up.
 
 | Capacity ($W$) | Optimal Value ($OPT$) | Item Chosen |
 |:---:|:---|:---|
-| **0** | | |
-| **1** | | |
-| **2** | | |
-| **3** | | |
-| **4** | | |
-| **5** | | |
-| **6** | | |
+| **0** | **0** | **none** |
+| **1** | **3** | **3** |
+| **2** | **6** | **3** |
+| **3** | **9** | **3** |
+| **4** | **12** | **3** |
+| **5** | **15** | **3** |
+| **6** | **18** | **3** |
 
 *Explain how you calculated the row for $W=6$*
-
+Since item 3 gives more value than item 1 while still weighing the same, no matter what in every scenario we should pick item 3 over 1. Additionally when we select item number 3 twice we get a total value of 6, which is more value than when we select item number 2 once. So we should additionally pick item number 3 over item number 2 in ever scenario, meaning that for every single item that we need to select it's it is most optimal to select item number 3. Which leads to us selecting item number 3 repeatedly until we get to W=6
 
 ## Part 6: Traceback
 
 **Question:** Using the "Item Chosen" column from the table you completed in Part 5, trace back to find the exact quantities of each item to pack that maximize the value. What is the final optimal packing configuration for $W=6$ and the maximum value?
 
-*Your Answer:*
+*Your Answer:* Packing 6 of item 3 for a total value of 18
